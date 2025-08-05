@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- <script crossorigin src="https://unpkg.com/react@17.0.0/umd/react.production.min.js"></script> -->
+</head>
+<body>
+    <!-- <h1 id="heading">Hello guys</h1> -->
+    <div id="root"></div>
+    <script type="text/babel">
+        function PostItem({title,imageUrl,description, onClick}){
+            return (
+                <div>
+                    <h1
+                        onClick={onClick}>
+                        {title}
+                    </h1>
+                    <img src={imageUrl}/>
+                    <p>{description}</p>
+                </div>
+            )
+        }
+        
+        const Form = {
+            Input () {
+                return <input/>
+            },
+            Checkbox () {
+                return <input type="checkbox"/>
+            }
+        }
+
+        const url = "http://localhost:3000/data"
+        function App(){
+/*
+            fetch(url)
+                .then(response => response.json())
+                .then(data => console.log(data))
+            .catch(error => console.error(error));
+*/
+            const [data, setData] = React.useState([]);
+            React.useEffect(() => {
+            fetch("http://localhost:3000/data")
+                .then(response => response.json())
+                .then(setData)
+                .catch(console.error);
+            }, []);
+
+            const handleClick = (title) => {
+                console.log(title)
+            }
+
+            return (
+                <div id="wrapper">
+                    <Form.Input />
+                    {data.map(({id,image_url, title, description}) => (
+                        <PostItem
+                            key={id}
+                            imageUrl={image_url}
+                            description={description}
+                            title={title}
+                            onClick = {() => handleClick(title)}
+                        />
+                    ))}
+                </div>
+            );
+        }
+/*
+            function App(){
+                return (
+                    <div id="wrapper">
+                        {data.map(({id,image, title, description}) => (
+                            <postItem
+                                image={data.image_url}
+                                description={data.description}
+                                title={data.title}
+                            />
+                        ))}
+                    </div>
+                );
+            }
+*/
+        // const list_items = [
+        //     {
+        //         title: "Xây dựng website với ReactJS",
+        //         desc: "Học cách xây dựng ứng dụng web hiện đại sử dụng thư viện ReactJS. Từ cơ bản đến nâng cao, kèm theo thực hành và dự án thực tế.",
+        //         published: "19/07/2025",
+        //         image: "https://files.fullstack.edu.vn/f8-prod/courses/13/13.png"
+        //     },
+        //     {
+        //          
+        //     },
+        //     {
+        //         title: "Responsive Web Design",
+        //         desc: "Tối ưu website cho nhiều thiết bị với kỹ thuật responsive design: media query, flexbox, grid, v.v.",
+        //         published: "05/07/2025",
+        //         image: "https://files.fullstack.edu.vn/f8-prod/courses/3.png"
+        //     }
+        // ];
+
+        /*
+        function PostItem({image,desc,title,published}){
+            return (
+                <div className="post-item">
+                    <img 
+                        src={image} 
+                        alt={desc}
+                    />
+                    <h2 className="post-title">{title}</h2>
+                    <p className="post-desc">{desc}</p>
+                    <p className="post-published">{published}</p>
+                </div>
+            )
+        }
+    /*
+        const app = (
+            <div className="posts-list">
+                <PostItem/>
+            </div>
+        );
+    */
+//    function App(){
+//         return (
+//             <div id="wrapper">
+//             </div>
+//         )
+//    }
+//    index.js
+   const root = ReactDOM.createRoot(document.getElementById("root"));
+   root.render(<App/>)
+    </script>
+</body>
+</html>
