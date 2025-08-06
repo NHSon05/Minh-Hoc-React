@@ -12,7 +12,7 @@
 <body>
     <!-- <h1 id="heading">Hello guys</h1> -->
     <div id="root"></div>
-    <script type="text/babel">
+    <script type="text/babel" type="module">
         function PostItem({title,imageUrl,description, onClick}){
             return (
                 <div>
@@ -34,7 +34,6 @@
                 return <input type="checkbox"/>
             }
         }
-
         const url = "http://localhost:3000/data"
         function App(){
 /*
@@ -56,8 +55,18 @@
             }
             const type = 'Checkbox';
             const Checkbox = Form[type];
+
+            const Button = () => {
+                return <button 
+                            href="https://www.facebook.com/"
+                            onClick={() => console.log('Hehe')}
+                            >Hehe
+                        </button>
+            }
+
             return (
                 <div id="wrapper">
+                    <Button/>
                     <Checkbox/>
                     {data.map(({id,image_url, title, description}) => (
                         <PostItem
@@ -71,6 +80,7 @@
                 </div>
             );
         }
+
 /*
             function App(){
                 return (
