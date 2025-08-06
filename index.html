@@ -54,10 +54,11 @@
             const handleClick = (title) => {
                 console.log(title)
             }
-
+            const type = 'Checkbox';
+            const Checkbox = Form[type];
             return (
                 <div id="wrapper">
-                    <Form.Input />
+                    <Checkbox/>
                     {data.map(({id,image_url, title, description}) => (
                         <PostItem
                             key={id}
